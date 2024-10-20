@@ -1,9 +1,15 @@
 package main;
 
 import javax.swing.JButton;
-import enums.Notes;
 
 public class Screen extends javax.swing.JFrame {
+
+    static String listOfNotes[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+    int btnWidth = 60;
+    int btnHeight = 150;
+    int initialX = 10;
+    int initialY = 10;
+
     private MusicPlayer musicPlayer;
 
     public static void main(String args[]) {
@@ -20,17 +26,13 @@ public class Screen extends javax.swing.JFrame {
 
         initComponents();
         setTitle("Memória Musical");
-        setSize(600, 400);
+        setSize((btnWidth * listOfNotes.length) + (initialX * 2), btnHeight + initialY);
     }
 
     private void initComponents() {
-        int btnWidth = 60;
-        int btnHeight = 150;
-        int initialX = 10;
-        int initialY = 10;
 
-        for (Notes nota : Notes.values()) {
-            JButton btnNote = new JButton(nota.getNameString());
+        for (String oneNote : listOfNotes) {
+            JButton btnNote = new JButton(oneNote);
             btnNote.setBounds(initialX, initialY, btnWidth, btnHeight);
             initialX += 65;
 
@@ -38,7 +40,7 @@ public class Screen extends javax.swing.JFrame {
 
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    musicPlayer.playNote(nota);
+                    musicPlayer.playNote(oneNote);
                 }
             });
 
