@@ -2,9 +2,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.memoria-musical</groupId> <!-- Troque por um identificador único para o seu projeto -->
-    <artifactId>memoria-musical</artifactId> <!-- Nome do seu projeto -->
-    <version>1.0-SNAPSHOT</version> <!-- Versão do seu projeto -->
+    <groupId>com.memoria-musical</groupId>
+    <artifactId>memoria-musical</artifactId>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -41,9 +41,10 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>main.Screen</mainClass> <!-- A sua classe principal -->
+                                    <mainClass>main.Screen</mainClass>
                                 </transformer>
                             </transformers>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
                 </executions>
