@@ -1,10 +1,10 @@
 package main;
 
 import javax.swing.JButton;
-import org.jfugue.player.Player;
+import enums.Notes;
 
 public class Screen extends javax.swing.JFrame {
-    Player player = new Player();
+    private MusicPlayer musicPlayer;
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -15,36 +15,38 @@ public class Screen extends javax.swing.JFrame {
     }
 
     public Screen() {
+
+        musicPlayer = new MusicPlayer();
+
         initComponents();
         setTitle("Memória Musical");
         setSize(600, 400);
-
     }
 
     private void initComponents() {
-        JButton btnDo = new javax.swing.JButton("Dó");
-        JButton btnRe = new javax.swing.JButton("Ré");
+        int btnWidth = 60;
+        int btnHeight = 150;
+        int initialX = 10;
+        int initialY = 10;
+
+        for (Notes nota : Notes.values()) {
+            JButton btnNote = new JButton(nota.getNameString());
+            btnNote.setBounds(initialX, initialY, btnWidth, btnHeight);
+            initialX += 65;
+
+            btnNote.addActionListener(new java.awt.event.ActionListener() {
+
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    musicPlayer.playNote(nota);
+                }
+            });
+
+            this.add(btnNote);
+        }
+
         this.setLayout(null);
-        btnDo.setBounds(250, 150, 100, 30);
-        btnRe.setBounds(250, 200, 100, 30);
-        this.add(btnDo);
-        this.add(btnRe);
 
-        btnDo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlay(evt, "C");
-            }
-        });
-
-        btnRe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlay(evt, "D");
-            }
-        });
     }
 
-    private void btnPlay(java.awt.event.ActionEvent evt, String note) {
-        player.play(note);
-        System.out.println("Nota tocada foi: " + note);
-    }
 }
