@@ -1,14 +1,20 @@
 package main;
 
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class Screen extends javax.swing.JFrame {
 
-    static String listOfNotes[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+    static String Notes[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
     int btnWidth = 60;
-    int btnHeight = 150;
+    int btnHeightWhite = 150;
+    int btnHeightBlack = 120;
     int initialX = 10;
     int initialY = 10;
+    int increment = 65;
+
+    Color btnBlack = new Color(0, 0, 0);
+    Color btnWhite = new Color(255, 255, 255);
 
     private MusicPlayer musicPlayer;
 
@@ -26,21 +32,30 @@ public class Screen extends javax.swing.JFrame {
 
         initComponents();
         setTitle("Memória Musical");
-        setSize((btnWidth * listOfNotes.length) + (initialX * 2), btnHeight + initialY);
+        setSize(795, 205);
     }
 
     private void initComponents() {
 
-        for (String oneNote : listOfNotes) {
-            JButton btnNote = new JButton(oneNote);
-            btnNote.setBounds(initialX, initialY, btnWidth, btnHeight);
-            initialX += 65;
+        for (String note : Notes) {
+            JButton btnNote = new JButton(note);
+
+            if (note.contains("#")) {
+                btnNote.setBackground(btnBlack);
+                btnNote.setForeground(btnWhite);
+                btnNote.setBounds(initialX, initialY, btnWidth, btnHeightBlack);
+            } else {
+                btnNote.setBackground(btnWhite);
+                btnNote.setForeground(btnBlack);
+                btnNote.setBounds(initialX, initialY, btnWidth, btnHeightWhite);
+            }
+
+            initialX += increment;
 
             btnNote.addActionListener(new java.awt.event.ActionListener() {
 
-                @Override
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    musicPlayer.playNote(oneNote);
+                    musicPlayer.playNote(note);
                 }
             });
 
