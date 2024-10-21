@@ -1,68 +1,46 @@
 package main;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import java.awt.Color;
+import java.awt.GridLayout;
 
 public class Screen extends javax.swing.JFrame {
 
-    static String Notes[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
-    int btnWidth = 60;
-    int btnHeightWhite = 150;
-    int btnHeightBlack = 120;
-    int initialX = 10;
-    int initialY = 10;
-    int increment = 65;
-
-    Color btnBlack = new Color(0, 0, 0);
-    Color btnWhite = new Color(255, 255, 255);
-
+    static Color btnBlack = new Color(0, 0, 0);
+    static Color btnWhite = new Color(255, 255, 255);
+    private JPanel panel = new JPanel(new GridLayout(1, Notes.list.length));
     private MusicPlayer musicPlayer;
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Screen().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new Screen().setVisible(true));
     }
 
     public Screen() {
-
-        musicPlayer = new MusicPlayer();
-
-        initComponents();
-        setTitle("Memória Musical");
-        setSize(795, 205);
+        initScreen();
+        createButtons();
     }
 
-    private void initComponents() {
+    private void initScreen() {
+        setTitle("Memória Musical");
+        add(panel);
+        setLayout(new GridLayout(1, 1));
+        setSize(795, 205);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-        for (String note : Notes) {
+    private void createButtons() {
+        musicPlayer = new MusicPlayer();
+
+        for (String note : Notes.list) {
             JButton btnNote = new JButton(note);
-
-            if (note.contains("#")) {
-                btnNote.setBackground(btnBlack);
-                btnNote.setForeground(btnWhite);
-                btnNote.setBounds(initialX, initialY, btnWidth, btnHeightBlack);
-            } else {
-                btnNote.setBackground(btnWhite);
-                btnNote.setForeground(btnBlack);
-                btnNote.setBounds(initialX, initialY, btnWidth, btnHeightWhite);
-            }
-
-            initialX += increment;
-
-            btnNote.addActionListener(new java.awt.event.ActionListener() {
-
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    musicPlayer.playNote(note);
-                }
-            });
-
-            this.add(btnNote);
+            btnNote.setBackground(note.contains("#") ? btnBlack : btnWhite);
+            btnNote.setForeground(note.contains("#") ? btnWhite : btnBlack);
+            btnNote.addActionListener(evt -> musicPlayer.playNote(note));
+            panel.add(btnNote);
         }
-
-        this.setLayout(null);
 
     }
 
