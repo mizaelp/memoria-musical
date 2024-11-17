@@ -3,7 +3,6 @@ package main;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -21,6 +20,7 @@ public class Screen extends javax.swing.JFrame {
     public Screen() {
         initScreen();
         createButtons();
+        musicPlayer.randomNote();
     }
 
     private void initScreen() {
