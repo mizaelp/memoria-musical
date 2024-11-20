@@ -21,11 +21,11 @@ public class MusicPlayer {
         player.play(note);
     }
 
-    public String randomNote() {
+    public void randomNote () {
         Random random = new Random();
         int indiceRandom = random.nextInt(Notes.list.length);
+        drawnNote = Notes.list[indiceRandom];
         player.play(Notes.list[indiceRandom]);
-        return Notes.list[indiceRandom];
     }
 
 }
